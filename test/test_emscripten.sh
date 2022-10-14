@@ -21,6 +21,4 @@ node test/emscripten_wasm_test.js
 which node
 echo "Test with Node"
 cd test
-#node --no-experimental-fetch test_wasm.js
-
-node --no-experimental-fetch emscripten_wasm_test.js
+node --no-experimental-fetch test_wasm.js
