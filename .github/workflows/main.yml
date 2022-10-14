@@ -1,0 +1,25 @@
+name: CI
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  emscripten_wasm:
+
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        emsdk: ["2.0.32", "latest"]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker-practice/actions-setup-docker@master
+      - run: |
+          chmod +x test/test_emscripten.sh
+          ./test/test_emscripten.sh BUILD ${{ matrix.emsdk }}
