@@ -1,7 +1,6 @@
-#ifndef XEUS_XEMSCRIPTEN_SERVER_HPP
-#define XEUS_XEMSCRIPTEN_SERVER_HPP
+#ifndef XEUS_LITE_XEMSCRIPTEN_SERVER_HPP
+#define XEUS_LITE_XEMSCRIPTEN_SERVER_HPP
 
-#include "xeus/xeus.hpp"
 #include "xeus/xserver.hpp"
 #include "xeus/xeus_context.hpp"
 #include "xeus/xkernel_configuration.hpp"
@@ -16,7 +15,7 @@ namespace xeus
 
     class xserver_emscripten;
 
-    class XEUS_API xtrivial_emscripten_messenger : public xcontrol_messenger
+    class xtrivial_emscripten_messenger : public xcontrol_messenger
     {
     public:
         
@@ -30,7 +29,7 @@ namespace xeus
         xserver_emscripten* p_server;
     };
 
-    class XEUS_API xserver_emscripten : public xserver
+    class xserver_emscripten : public xserver
     {
     public:
 
@@ -59,8 +58,6 @@ namespace xeus
         trivial_messenger_ptr p_messenger;
     };
 
-
-    XEUS_API
     std::unique_ptr<xserver> make_xserver_emscripten(xcontext& context, const xconfiguration& config, nl::json::error_handler_t eh = nl::json::error_handler_t::strict);
 }
 

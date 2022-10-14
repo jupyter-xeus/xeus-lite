@@ -6,13 +6,10 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#ifndef XEUS_XEMBIND_HPP
-#define XEUS_XEMBIND_HPP
-
 #include <string>
 #include <iostream>
 
-#include "xeus/xserver_emscripten.hpp"
+#include "xeus-lite/xserver_emscripten.hpp"
 #include "xeus/xkernel.hpp"
 #include "xeus/xeus_context.hpp"
 #include "xeus/xinterpreter.hpp"
@@ -199,6 +196,4 @@ namespace xeus
         return &kernel->get_server();
     }
 }
-
-#endif
 

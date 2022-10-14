@@ -2,8 +2,8 @@
 #include "xeus/xserver.hpp"
 #include "xeus/xmessage.hpp"
 #include "xeus/xkernel_configuration.hpp"
-#include "xeus/xserver_emscripten.hpp"
-#include "xeus/xembind.hpp"
+#include "xeus-lite/xserver_emscripten.hpp"
+#include "xeus-lite/xembind.hpp"
 
 #include <iostream>
 #include <emscripten.h>

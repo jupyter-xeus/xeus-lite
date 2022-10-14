@@ -1,21 +1,23 @@
 /***************************************************************************
 * Copyright (c) 2021, Thorsten Beier                                       *
+* Copyright (c) 2022, QuantStack                                           *
 *                                                                          *
 * Distributed under the terms of the BSD 3-Clause License.                 *
 *                                                                          *
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#ifndef XEUS_XEMBIND_HPP
-#define XEUS_XEMBIND_HPP
+#ifndef XEUS_LITE_XEMBIND_HPP
+#define XEUS_LITE_XEMBIND_HPP
 
 #include <string>
 
-#include "xeus/xserver_emscripten.hpp"
 #include "xeus/xkernel.hpp"
 #include "xeus/xeus_context.hpp"
 #include "xeus/xinterpreter.hpp"
 #include "xeus/xmessage.hpp"
+
+#include "xserver_emscripten.hpp"
 
 namespace nl = nlohmann;
 namespace ems = emscripten;
