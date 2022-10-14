@@ -1,0 +1,5 @@
+name: xeus-lite
+channels:
+  - conda-forge
+dependencies:
+  - nodejs

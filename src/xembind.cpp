@@ -169,7 +169,7 @@ namespace xeus
 
     void export_core()
     {
-        #ifdef XEUS_EMSCRIPTEN_WASM_TEST_BUILD
+        #ifdef XEUS_LITE_EMSCRIPTEN_WASM_TEST_BUILD
         ems::class_<buffer_sequence>("buffer_sequence")
             .constructor<>()
             .function("size", &buffer_sequence::size)

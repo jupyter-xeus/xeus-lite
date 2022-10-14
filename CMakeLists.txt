@@ -92,8 +92,6 @@ set(XEUS_LITE_SOURCES
 
 include(CheckCXXCompilerFlag)
 
-string(TOUPPER "${CMAKE_BUILD_TYPE}" U_CMAKE_BUILD_TYPE)
-
 add_library(xeus-lite STATIC ${XEUS_LITE_SOURCES} ${XEUS_LITE_HEADERS})
 target_include_directories(
     xeus-lite
@@ -104,7 +102,7 @@ target_link_libraries(
     xeus-lite
     PUBLIC nlohmann_json::nlohmann_json
     PUBLIC xtl
-    PUBLIC xeus
+    PUBLIC xeus-static
 )
 
 set_target_properties(
@@ -154,19 +152,19 @@ target_link_options(xeus-lite
 # We need to control from outside whether we enable testing or not. We cannot
 # rely on BUILD_TESTING since it doe snot exist until CTest is included.
 
-#include(CTest)
+include(CTest)
 
-#if(XEUS_LITE_BUILD_TESTS)
-#    set(BUILD_TESTING ON)
-#    message(STATUS "tests enabled")
-#else ()
-#    set(BUILD_TESTING OFF)
-#    message(STATUS "tests disabled")
-#endif()
+if(XEUS_LITE_BUILD_TESTS)
+    set(BUILD_TESTING ON)
+    message(STATUS "tests enabled")
+else ()
+    set(BUILD_TESTING OFF)
+    message(STATUS "tests disabled")
+endif()
 
-#if(BUILD_TESTING)
-#    add_subdirectory(test)
-#endif()
+if(BUILD_TESTING)
+    add_subdirectory(test)
+endif()
 
 # Installation
 # ============
