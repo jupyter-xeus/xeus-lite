@@ -9,3 +9,4 @@
 
 add_executable(emscripten_wasm_test main_emscripten_wasm.cpp xmock_interpreter.cpp)
 target_link_libraries(emscripten_wasm_test PRIVATE xeus-lite)
+xeus_wasm_link_options(emscripten_wasm_test "node")
