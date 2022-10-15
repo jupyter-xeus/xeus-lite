@@ -44,9 +44,6 @@ option(XEUS_LITE_BUILD_TESTS "xeus test suite" OFF)
 if(XEUS_LITE_BUILD_TESTS)
    # this variable is used in the export_core function
    add_compile_definitions(XEUS_LITE_EMSCRIPTEN_WASM_TEST_BUILD)
-   set(XEUS_LITE_EMSCRIPTEN_ENVIRONMENT "node")
-else()
-   set(XEUS_LITE_EMSCRIPTEN_ENVIRONMENT "web,worker")
 endif()
 
 # Print build configuration
@@ -91,6 +88,7 @@ set(XEUS_LITE_SOURCES
 # ================
 
 include(CheckCXXCompilerFlag)
+include(WasmBuildOptions)
 
 add_library(xeus-lite STATIC ${XEUS_LITE_SOURCES} ${XEUS_LITE_HEADERS})
 target_include_directories(
@@ -114,9 +112,8 @@ set_target_properties(
 )
 
 target_compile_features(xeus-lite PRIVATE cxx_std_11)
-target_compile_definitions(xeus-lite PRIVATE XEUS_LITE_EMSCRIPTEN_WASM_BUILD)
-
-target_compile_options(xeus-lite
+xeus_wasm_compile_options(xeus-lite)
+#[[target_compile_options(xeus-lite
     PUBLIC --std=c++17
     PUBLIC -Wno-deprecated
     PUBLIC "SHELL: -s USE_PTHREADS=0"
@@ -137,14 +134,13 @@ target_link_options(xeus-lite
     PUBLIC "SHELL: -s WASM=1"
     PUBLIC "SHELL: -s USE_PTHREADS=0"
     PUBLIC "SHELL: -s DISABLE_EXCEPTION_CATCHING=0"
-    PUBLIC "SHELL: -s ENVIRONMENT=${XEUS_LITE_EMSCRIPTEN_ENVIRONMENT}"
 )
 
 target_link_options(xeus-lite
     INTERFACE "SHELL: -s ASYNCIFY=1"
     INTERFACE "SHELL: -s 'ASYNCIFY_IMPORTS=[\"get_stdin\"]'"
     INTERFACE "SHELL: -s 'ASYNCIFY_STACK_SIZE=100000'"
-)
+)]]
 
 # Tests
 # =====
