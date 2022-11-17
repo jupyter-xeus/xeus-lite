@@ -113,34 +113,6 @@ set_target_properties(
 
 target_compile_features(xeus-lite PRIVATE cxx_std_11)
 xeus_wasm_compile_options(xeus-lite)
-#[[target_compile_options(xeus-lite
-    PUBLIC --std=c++17
-    PUBLIC -Wno-deprecated
-    PUBLIC "SHELL: -s USE_PTHREADS=0"
-    PUBLIC "SHELL: -s DISABLE_EXCEPTION_CATCHING=0"
-)
-
-target_link_options(xeus-lite
-    PUBLIC --bind
-    PUBLIC -Wno-unused-command-line-argument
-    PUBLIC "SHELL: -s MODULARIZE=1"
-    PUBLIC "SHELL: -s EXPORT_NAME=\"createXeusModule\""
-    PUBLIC "SHELL: -s EXPORT_ES6=0"
-    PUBLIC "SHELL: -s USE_ES6_IMPORT_META=0"
-    PUBLIC "SHELL: -s DEMANGLE_SUPPORT=0"
-    PUBLIC "SHELL: -s ASSERTIONS=0"
-    PUBLIC "SHELL: -s ALLOW_MEMORY_GROWTH=1"
-    PUBLIC "SHELL: -s EXIT_RUNTIME=1"
-    PUBLIC "SHELL: -s WASM=1"
-    PUBLIC "SHELL: -s USE_PTHREADS=0"
-    PUBLIC "SHELL: -s DISABLE_EXCEPTION_CATCHING=0"
-)
-
-target_link_options(xeus-lite
-    INTERFACE "SHELL: -s ASYNCIFY=1"
-    INTERFACE "SHELL: -s 'ASYNCIFY_IMPORTS=[\"get_stdin\"]'"
-    INTERFACE "SHELL: -s 'ASYNCIFY_STACK_SIZE=100000'"
-)]]
 
 # Tests
 # =====
@@ -170,6 +142,8 @@ include(CMakePackageConfigHelpers)
 
 set(XEUS_LITE_CMAKECONFIG_INSTALL_DIR
     "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}" CACHE STRING "install path for xeus-liteConfig.cmake")
+set(XEUS_LITE_TS_INSTALL_DIR
+    "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}" CACHE STRING "install path for typescript files")
 
 install(TARGETS xeus-lite
         EXPORT ${PROJECT_NAME}-targets
@@ -206,3 +180,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}Config.cmake
 install(EXPORT ${PROJECT_NAME}-targets
         FILE ${PROJECT_NAME}Targets.cmake
         DESTINATION ${XEUS_LITE_CMAKECONFIG_INSTALL_DIR})
+
+install(DIRECTORY share/${PROJECT_NAME}/
+        DESTINATION ${XEUS_LITE_TS_INSTALL_DIR})
+
