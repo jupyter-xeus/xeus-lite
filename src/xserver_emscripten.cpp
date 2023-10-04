@@ -29,7 +29,7 @@ namespace xeus
     {
         message.set("channel", emscripten::val(channel));
 
-        if(emscripten::val::global("self").hasProperty("postMessage"))
+        if(emscripten::val::global("self").hasOwnProperty("postMessage"))
         {
             emscripten::val::global("self").call<void>("postMessage", message);
         }
