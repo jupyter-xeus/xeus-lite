@@ -1,6 +1,12 @@
 var assert = require('assert');
 var XeusModuleFactory = require('./emscripten_wasm_test.js')
 
+global.self = {
+    postMessage : function(message) {
+        console.log("postMessage", message)
+    }
+}
+
 function test_start_kernel(Module) {
     raw_xkernel = new Module.xkernel();
     var raw_xserver = raw_xkernel.get_server();
