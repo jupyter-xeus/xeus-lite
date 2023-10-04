@@ -8,6 +8,7 @@ var self = {
     }
 }
 console.log("self" , self);
+global.self = self;
 
 function test_start_kernel(Module) {
     raw_xkernel = new Module.xkernel();
