@@ -21,13 +21,15 @@ namespace xeus
       });
     });
 
-    EM_JS(void, post_kernel_message, (const char* channel, ems::EM_VAL message_handle), {
-      var message = Emval.toValue(message_handle);
-      message.channel = UTF8ToString(channel);
-      if (typeof self !== 'undefined') {
-        self.postMessage(message);
-      }
-    });
+    // we use this instead of EM_JS since this is more robust.
+    // EM_JS functions where somewhat undefined  / buggy when
+    // using them in xeus-python.
+    // This might be a bit slower, but this should not be a problem
+    inline void post_kernel_message(const std::string & channel, emscripten::val && message)
+    {
+        message.set("channel", emscripten::val(channel));
+        emscripten::val::global("self").call<void>("postMessage", message);
+    } 
 
     xtrivial_emscripten_messenger::xtrivial_emscripten_messenger(xserver_emscripten* server)
     : p_server(server)
@@ -82,17 +84,17 @@ namespace xeus
 
     void xserver_emscripten::send_shell_impl(xmessage message) 
     {
-        post_kernel_message("shell", js_message_from_xmessage(message, true).as_handle());
+        post_kernel_message("shell", js_message_from_xmessage(message, true));
     }
 
     void xserver_emscripten::send_control_impl(xmessage message) 
     {
-        post_kernel_message("control", js_message_from_xmessage(message, true).as_handle());
+        post_kernel_message("control", js_message_from_xmessage(message, true));
     }
 
     void xserver_emscripten::send_stdin_impl(xmessage message) 
     {
-        post_kernel_message("stdin", js_message_from_xmessage(message, true).as_handle());
+        post_kernel_message("stdin", js_message_from_xmessage(message, true));
         // Block until a response to the input request is received.
         ems::val js_message = ems::val::take_ownership(get_stdin());
         try
@@ -108,7 +110,7 @@ namespace xeus
 
     void xserver_emscripten::publish_impl(xpub_message message, channel) 
     {
-        post_kernel_message("iopub", js_message_from_xmessage(message, true).as_handle());
+        post_kernel_message("iopub", js_message_from_xmessage(message, true));
     }
 
     void xserver_emscripten::start_impl(xpub_message  /*message*/) 

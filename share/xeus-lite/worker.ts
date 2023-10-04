@@ -164,21 +164,29 @@ class XeusKernel {
     importScripts(WASM_KERNEL_FILE);
 
     globalThis.Module = await createXeusModule({});
-
-    if (DATA_FILE.length !== 0) {
-      importScripts(DATA_FILE);
-      await this.waitRunDependency();
+    try {
+      if (DATA_FILE.length !== 0) {
+        importScripts(DATA_FILE);
+        await this.waitRunDependency();
+      }
+      this._raw_xkernel = new globalThis.Module.xkernel();
+      this._raw_xserver = this._raw_xkernel.get_server();
+      if (!this._raw_xkernel) {
+        console.error('Failed to start kernel!');
+      }
+      this._raw_xkernel.start();
     }
-
-    this._raw_xkernel = new globalThis.Module.xkernel();
-    this._raw_xserver = this._raw_xkernel.get_server();
-
-    if (!this._raw_xkernel) {
-      console.error('Failed to start kernel!');
+    catch (e) {
+        if( typeof e === 'number' ) {
+          const msg = globalThis.Module.get_exception_message(e);
+          console.error(msg);
+          throw new Error(msg);
+        }
+        else {
+          console.error(e);
+          throw(e);
+        }
     }
-
-    this._raw_xkernel.start();
-
     resolve();
   }
 

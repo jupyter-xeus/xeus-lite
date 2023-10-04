@@ -67,6 +67,13 @@ namespace xeus
             .function("get_server", &get_server, ems::allow_raw_pointers())
             .function("start", &xkernel::start)
         ;
+        // we need a helper function to translate exception ptrs 
+        // to the actual exception message since on the JS side,
+        // we cannot access the exception message directly.
+        ems::function("get_exception_message", 
+            ems::select_overload<std::string(int)>([](int exceptionPtr) {
+            return std::string(reinterpret_cast<std::exception *>(exceptionPtr)->what());
+        }));
     }
 }
 
