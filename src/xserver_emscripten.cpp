@@ -28,11 +28,7 @@ namespace xeus
     inline void post_kernel_message(const std::string & channel, emscripten::val && message)
     {
         message.set("channel", emscripten::val(channel));
-
-        if(emscripten::val::global("self").hasOwnProperty("postMessage"))
-        {
-            emscripten::val::global("self").call<void>("postMessage", message);
-        }
+        emscripten::val::global("self").call<void>("postMessage", message); 
     } 
 
     xtrivial_emscripten_messenger::xtrivial_emscripten_messenger(xserver_emscripten* server)
