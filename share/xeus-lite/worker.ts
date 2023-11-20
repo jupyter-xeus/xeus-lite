@@ -169,6 +169,11 @@ class XeusKernel {
         importScripts(DATA_FILE);
         await this.waitRunDependency();
       }
+      // if the kernel has an async_initialize function, we need to
+      // call it before we can start the kernel
+      if(globalThis.Module.async_initialize) {
+        await globalThis.Module.async_initialize();
+      }
       this._raw_xkernel = new globalThis.Module.xkernel();
       this._raw_xserver = this._raw_xkernel.get_server();
       if (!this._raw_xkernel) {
