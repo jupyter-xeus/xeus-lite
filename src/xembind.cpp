@@ -18,6 +18,7 @@
 namespace nl = nlohmann;
 namespace ems = emscripten;
 
+
 namespace xeus
 {
     nl::json json_from_js_object(ems::val js_obj)

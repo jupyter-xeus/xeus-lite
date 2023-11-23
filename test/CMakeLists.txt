@@ -9,4 +9,22 @@
 
 add_executable(emscripten_wasm_test main_emscripten_wasm.cpp xmock_interpreter.cpp)
 target_link_libraries(emscripten_wasm_test PRIVATE xeus-lite)
+xeus_wasm_compile_options(emscripten_wasm_test)
 xeus_wasm_link_options(emscripten_wasm_test "node")
+
+
+add_executable(xlite main_emscripten_wasm.cpp xmock_interpreter.cpp)
+target_link_libraries(xlite PRIVATE xeus-lite)
+xeus_wasm_compile_options(xlite)
+xeus_wasm_link_options(xlite "web,worker")
+
+
+SET(KERNEL_INSTALL_DIR "share/jupyter/kernels/xlite")
+
+
+install(FILES      "${CMAKE_CURRENT_SOURCE_DIR}/logo-64x64.png"
+                   "${CMAKE_CURRENT_SOURCE_DIR}/logo-32x32.png"
+                   "$<TARGET_FILE_DIR:xlite>/xlite.wasm"
+                   "$<TARGET_FILE_DIR:xlite>/xlite.js"
+                   "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json"
+        DESTINATION ${KERNEL_INSTALL_DIR})
