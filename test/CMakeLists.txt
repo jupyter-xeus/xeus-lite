@@ -29,4 +29,4 @@ if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
                     "$<TARGET_FILE_DIR:xlite>/xlite.js"
                     "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json"
             DESTINATION ${KERNEL_INSTALL_DIR})
-elseif()
+endif()
