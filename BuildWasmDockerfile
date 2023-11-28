@@ -72,7 +72,7 @@ RUN mkdir -p /xeus-build && cd /xeus-build && \
         -Dxtl_DIR=/install/share/cmake/xtl \
         -Dxeus_DIR=/install/lib/cmake/xeus \
         -DXEUS_LITE_BUILD_BROWSER_TEST_KERNEL=ON \
-        -DXEUS_LITE_BUILD_NODE_TESTS=ON \
+        -DXEUS_LITE_BUILD_NODE_TESTS=ON
 
 RUN cd /xeus-build && \
     emmake make -j8
