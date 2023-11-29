@@ -134,8 +134,6 @@ include(CMakePackageConfigHelpers)
 
 set(XEUS_LITE_CMAKECONFIG_INSTALL_DIR
     "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}" CACHE STRING "install path for xeus-liteConfig.cmake")
-set(XEUS_LITE_TS_INSTALL_DIR
-    "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}" CACHE STRING "install path for typescript files")
 
 install(TARGETS xeus-lite
         EXPORT ${PROJECT_NAME}-targets
@@ -172,7 +170,4 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}Config.cmake
 install(EXPORT ${PROJECT_NAME}-targets
         FILE ${PROJECT_NAME}Targets.cmake
         DESTINATION ${XEUS_LITE_CMAKECONFIG_INSTALL_DIR})
-
-install(DIRECTORY share/${PROJECT_NAME}/
-        DESTINATION ${XEUS_LITE_TS_INSTALL_DIR})
 
