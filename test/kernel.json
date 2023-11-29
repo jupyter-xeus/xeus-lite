@@ -1,0 +1,13 @@
+{
+    "display_name": "XLite",
+    "argv": [
+        "xlite",
+        "-f",
+        "{connection_file}"
+    ],
+    "language": "lua",
+    "metadata": { 
+      "wasm_name" : "xlite"
+    }
+  }
+  

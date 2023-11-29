@@ -35,13 +35,13 @@ message(STATUS "xeus-lite version: v${XEUS_LITE_VERSION}")
 # =============
 
 # Test options
-option(XEUS_LITE_BUILD_TESTS "xeus test suite" OFF)
-
+option(XEUS_LITE_BUILD_NODE_TESTS          "xeus-lite test suite (node)" OFF)
+option(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL "xeus-lte test kernel (browser)" OFF)
 # Emscripten wasm build configuration
 # ==========================
 
 # Tests are run in Node, while production builds in the browser.
-if(XEUS_LITE_BUILD_TESTS)
+if(XEUS_LITE_BUILD_NODE_TESTS)
    # this variable is used in the export_core function
    add_compile_definitions(XEUS_LITE_EMSCRIPTEN_WASM_TEST_BUILD)
 endif()
@@ -49,7 +49,7 @@ endif()
 # Print build configuration
 # ==========================
 
-message(STATUS "XEUS_LITE_BUILD_TESTS:                ${XEUS_LITE_BUILD_TESTS}")  
+message(STATUS "XEUS_LITE_BUILD_NODE_TESTS:                ${XEUS_LITE_BUILD_NODE_TESTS}")  
 
 # Dependencies
 # ============
@@ -122,15 +122,7 @@ xeus_wasm_compile_options(xeus-lite)
 
 include(CTest)
 
-if(XEUS_LITE_BUILD_TESTS)
-    set(BUILD_TESTING ON)
-    message(STATUS "tests enabled")
-else ()
-    set(BUILD_TESTING OFF)
-    message(STATUS "tests disabled")
-endif()
-
-if(BUILD_TESTING)
+if(XEUS_LITE_BUILD_NODE_TESTS OR XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
     add_subdirectory(test)
 endif()
 
@@ -142,8 +134,6 @@ include(CMakePackageConfigHelpers)
 
 set(XEUS_LITE_CMAKECONFIG_INSTALL_DIR
     "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}" CACHE STRING "install path for xeus-liteConfig.cmake")
-set(XEUS_LITE_TS_INSTALL_DIR
-    "${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME}" CACHE STRING "install path for typescript files")
 
 install(TARGETS xeus-lite
         EXPORT ${PROJECT_NAME}-targets
@@ -180,7 +170,4 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${PROJECT_NAME}Config.cmake
 install(EXPORT ${PROJECT_NAME}-targets
         FILE ${PROJECT_NAME}Targets.cmake
         DESTINATION ${XEUS_LITE_CMAKECONFIG_INSTALL_DIR})
-
-install(DIRECTORY share/${PROJECT_NAME}/
-        DESTINATION ${XEUS_LITE_TS_INSTALL_DIR})
 
