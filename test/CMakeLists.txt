@@ -18,16 +18,10 @@ endif()
 if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
 include(GNUInstallDirs)
 
-    # Running find_package(PythonInterp) to retrieve the Python version
-    # which is not exported by Pybind11's cmake.
-    # Cf. https://github.com/pybind/pybind11/issues/2268
-    find_package(PythonInterp ${PythonLibsNew_FIND_VERSION} REQUIRED)
-
     configure_file (
         "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json.in"
         "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json"
     )
-
 
     add_executable(xlite main_emscripten_wasm.cpp xmock_interpreter.cpp)
     target_link_libraries(xlite PRIVATE xeus-lite)
