@@ -16,6 +16,7 @@ if(XEUS_LITE_BUILD_NODE_TESTS)
 endif()
 
 if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
+
 include(GNUInstallDirs)
 
     configure_file (
