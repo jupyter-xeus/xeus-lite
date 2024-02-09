@@ -56,7 +56,7 @@ message(STATUS "XEUS_LITE_BUILD_NODE_TESTS:                ${XEUS_LITE_BUILD_NOD
 
 set(nlohmann_json_REQUIRED_VERSION 3.2.0)
 set(xtl_REQUIRED_VERSION 0.7)
-set(xeus_REQUIRED_VERSION 3.0)
+set(xeus_REQUIRED_VERSION 3.2.0)
 
 if (NOT TARGET nlohmann_json)
     find_package(nlohmann_json ${nlohmann_json_REQUIRED_VERSION} REQUIRED)
@@ -111,7 +111,7 @@ set_target_properties(
     OUTPUT_NAME "libxeus-lite"
 )
 
-target_compile_features(xeus-lite PRIVATE cxx_std_11)
+target_compile_features(xeus-lite PRIVATE cxx_std_17)
 xeus_wasm_compile_options(xeus-lite)
 
 # Tests
