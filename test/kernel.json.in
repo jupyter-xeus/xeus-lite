@@ -1,13 +1,12 @@
 {
     "display_name": "XLite",
     "argv": [
-        "xlite",
+        "@CMAKE_INSTALL_FULL_BINDIR@/xlite",
         "-f",
         "{connection_file}"
     ],
     "language": "lua",
     "metadata": { 
-      "wasm_name" : "xlite"
     }
   }
   
