@@ -29,21 +29,21 @@ namespace xeus
         using function_type = std::function<void(xeus::xcomm&&, const xeus::xmessage&)>;
     }
 
-    nl::json xmock_interpreter::execute_request_impl(int execution_counter,
-                                                     const std::string& code,
-                                                     bool /* silent */,
-                                                     bool /* store_history */,
-                                                     nl::json /* user_expressions */,
-                                                     bool /* allow_stdin */)
+    void xmock_interpreter::execute_request_impl(xrequest_context request_context,
+                                                 send_reply_callback cb,       
+                                                 int execution_counter,
+                                                 const std::string& code,
+                                                 execute_request_config config,
+                                                 nl::json /* user_expressions */)
     {
         if (code.compare("hello, world") == 0)
         {
-            publish_stream("stdout", code);
+            publish_stream(request_context, "stdout", code);
         }
 
         if (code.compare("error") == 0)
         {
-            publish_stream("stderr", code);
+            publish_stream(request_context, "stderr", code);
         }
 
         if (code.compare("?") == 0)
@@ -61,14 +61,16 @@ namespace xeus
                             {"start", 0}
                         });
 
-            return xeus::create_successful_reply(payload);
+            cb(xeus::create_successful_reply(payload));
+            return;
         }
 
         nl::json pub_data;
         pub_data["text/plain"] = code;
-        publish_execution_result(execution_counter, std::move(pub_data), nl::json::object());
+        publish_execution_result(request_context, execution_counter, std::move(pub_data), nl::json::object());
 
-        return xeus::create_successful_reply();
+        cb(xeus::create_successful_reply());
+        return;
     }
 
     nl::json xmock_interpreter::complete_request_impl(const std::string& /* code */,
