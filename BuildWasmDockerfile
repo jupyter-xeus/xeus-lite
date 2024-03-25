@@ -29,7 +29,7 @@ RUN cd /deps/xtl/build && \
 # nloman json
 ##################################################################
 RUN mkdir -p /deps/nlohmannjson/build && \
-    git clone --branch v3.9.1 --depth 1 https://github.com/nlohmann/json.git /deps/nlohmannjson/src
+    git clone --branch v3.11.3 --depth 1 https://github.com/nlohmann/json.git /deps/nlohmannjson/src
 
 RUN cd /deps/nlohmannjson/build && \
     emcmake cmake ../src/   -DCMAKE_INSTALL_PREFIX=/install -DJSON_BuildTests=OFF
