@@ -29,8 +29,6 @@ namespace xeus
     {
     };
 
-
-
     void buffer_sequence_from_js_buffer(buffer_sequence& self, ems::val buffers);
     xmessage xmessage_from_js_message(ems::val js_message);
     ems::val js_message_from_xmessage(const xmessage & message, bool copy);
