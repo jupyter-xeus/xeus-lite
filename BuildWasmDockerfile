@@ -49,7 +49,7 @@ RUN git clone --branch 4.0.0 https://github.com/jupyter-xeus/xeus.git /deps/xeus
 RUN cd /deps/xeus/build && \
     emcmake cmake ../src  \
         -DCMAKE_INSTALL_PREFIX=/install \
-        -Dnlohmann_json_DIR=/install/lib/cmake/nlohmann_json \
+        -Dnlohmann_json_DIR=/install/share/cmake/nlohmann_json \
         -Dxtl_DIR=/install/share/cmake/xtl \
         -DXEUS_EMSCRIPTEN_WASM_BUILD=ON
 
