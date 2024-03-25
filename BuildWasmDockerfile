@@ -68,7 +68,7 @@ ADD ./test /test
 RUN mkdir -p /xeus-build && cd /xeus-build && \
     emcmake cmake  .. \
         -DCMAKE_INSTALL_PREFIX=/install \
-        -Dnlohmann_json_DIR=/install/lib/cmake/nlohmann_json \
+        -Dnlohmann_json_DIR=/install/share/cmake/nlohmann_json \
         -Dxtl_DIR=/install/share/cmake/xtl \
         -Dxeus_DIR=/install/lib/cmake/xeus \
         -DXEUS_LITE_BUILD_BROWSER_TEST_KERNEL=ON \
