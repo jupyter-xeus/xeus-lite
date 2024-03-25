@@ -42,7 +42,7 @@ RUN cd /deps/nlohmannjson/build && \
 ##################################################################
 
 RUN mkdir -p /deps/xeus/build
-RUN git clone --branch 4.0.0 https://github.com/jupyter-xeus/xeus.git /deps/xeus/src
+RUN git clone --branch 4.0.1 https://github.com/jupyter-xeus/xeus.git /deps/xeus/src
 
 #COPY xeus /deps/xeus/src
 
