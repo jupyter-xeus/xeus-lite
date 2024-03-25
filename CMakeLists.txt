@@ -54,13 +54,8 @@ message(STATUS "XEUS_LITE_BUILD_NODE_TESTS:                ${XEUS_LITE_BUILD_NOD
 # Dependencies
 # ============
 
-set(nlohmann_json_REQUIRED_VERSION 3.2.0)
 set(xtl_REQUIRED_VERSION 0.7)
-set(xeus_REQUIRED_VERSION 3.2.0)
-
-if (NOT TARGET nlohmann_json)
-    find_package(nlohmann_json ${nlohmann_json_REQUIRED_VERSION} REQUIRED)
-endif ()
+set(xeus_REQUIRED_VERSION 4.0.0)
 
 if (NOT TARGET xtl)
     find_package(xtl ${xtl_REQUIRED_VERSION} REQUIRED)
@@ -98,7 +93,6 @@ target_include_directories(
 )
 target_link_libraries(
     xeus-lite
-    PUBLIC nlohmann_json::nlohmann_json
     PUBLIC xtl
     PUBLIC xeus-static
 )

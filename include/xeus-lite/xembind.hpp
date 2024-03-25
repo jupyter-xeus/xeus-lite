@@ -25,6 +25,10 @@ namespace ems = emscripten;
 namespace xeus
 {
 
+    struct empty_context_tag
+    {
+    };
+
     void buffer_sequence_from_js_buffer(buffer_sequence& self, ems::val buffers);
     xmessage xmessage_from_js_message(ems::val js_message);
     ems::val js_message_from_xmessage(const xmessage & message, bool copy);
@@ -46,7 +50,7 @@ namespace xeus
         using interpreter_ptr = std::unique_ptr<interpreter_type>;
         
         auto interpreter = interpreter_ptr(new interpreter_type());
-        auto context = xeus::make_empty_context();
+        auto context = std::make_unique<xeus::xcontext_impl<empty_context_tag>>();
 
         xeus::xkernel * kernel = new xeus::xkernel(config,
                              xeus::get_user_name(),
