@@ -10,6 +10,7 @@
 #ifndef XEUS_LITE_XEMBIND_HPP
 #define XEUS_LITE_XEMBIND_HPP
 
+#include <memory>
 #include <string>
 
 #include "xeus/xkernel.hpp"
