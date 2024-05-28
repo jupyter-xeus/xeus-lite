@@ -54,12 +54,7 @@ message(STATUS "XEUS_LITE_BUILD_NODE_TESTS:                ${XEUS_LITE_BUILD_NOD
 # Dependencies
 # ============
 
-set(xtl_REQUIRED_VERSION 0.7)
-set(xeus_REQUIRED_VERSION 4.0.0)
-
-if (NOT TARGET xtl)
-    find_package(xtl ${xtl_REQUIRED_VERSION} REQUIRED)
-endif ()
+set(xeus_REQUIRED_VERSION 5.0.0)
 
 if (NOT TARGET xeus)
     find_package(xeus ${xeus_REQUIRED_VERSION} REQUIRED)
@@ -93,7 +88,6 @@ target_include_directories(
 )
 target_link_libraries(
     xeus-lite
-    PUBLIC xtl
     PUBLIC xeus-static
 )
 
