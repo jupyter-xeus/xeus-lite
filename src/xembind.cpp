@@ -39,12 +39,19 @@ namespace xeus
             // the typed array an be of any type
             ems::val js_array = buffers_vec[i];
 
+            // this might be a data-view..
+            const std::string cls_name  = js_array["constructor"]["name"].as<std::string>();
+            const auto is_data_view = cls_name == std::string("DataView");
+
+
             // data we need to convert js_array into an js Uint8Arra
-            ems::val js_array_buffer = js_array["buffer"].as<ems::val>();
+            ems::val js_array_buffer = maybe_js_array["buffer"].as<ems::val>();
             ems::val byteOffset = js_array["byteOffset"].as<ems::val>();
             const unsigned length = js_array["length"].as<unsigned> ();
-            const unsigned bytes_per_element = js_array["BYTES_PER_ELEMENT"].as<unsigned>();
-            const unsigned length_uint8 = length * bytes_per_element;
+
+            // if its a data view we can/need to get the byteLength directly
+            // because there is no "BYTES_PER_ELEMENT" 
+            const unsigned length_uint8 = is_data_view ?      js_array["byteLength"].as<unsigned>()  :   length * js_array["BYTES_PER_ELEMENT"].as<unsigned>() ;
 
             // convert js typed-array into an  Uint8Array
             ems::val js_uint8array = ems::val::global("Uint8Array").new_(
