@@ -45,7 +45,7 @@ namespace xeus
 
 
             // data we need to convert js_array into an js Uint8Arra
-            ems::val js_array_buffer = maybe_js_array["buffer"].as<ems::val>();
+            ems::val js_array_buffer = js_array["buffer"].as<ems::val>();
             ems::val byteOffset = js_array["byteOffset"].as<ems::val>();
             const unsigned length = js_array["length"].as<unsigned> ();
 
