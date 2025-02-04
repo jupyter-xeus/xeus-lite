@@ -43,14 +43,13 @@ namespace xeus
             ems::val js_array_buffer = js_array["buffer"].as<ems::val>();
             ems::val byteOffset = js_array["byteOffset"].as<ems::val>();
             const unsigned length = js_array["length"].as<unsigned> ();
-            const unsigned bytes_per_element = js_array["BYTES_PER_ELEMENT"].as<unsigned>();
-            const unsigned length_uint8 = length * bytes_per_element;
-
+            const unsigned length_uint8 = js_array["byteLength"].as<unsigned>();
+        
             // convert js typed-array into an  Uint8Array
             ems::val js_uint8array = ems::val::global("Uint8Array").new_(
                 js_array_buffer, 
                 byteOffset, 
-                length * bytes_per_element
+                length_uint8
             );
 
             // resize array on c++ size
