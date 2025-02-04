@@ -52,12 +52,13 @@ namespace xeus
             // if its a data view we can/need to get the byteLength directly
             // because there is no "BYTES_PER_ELEMENT" 
             const unsigned length_uint8 = is_data_view ?      js_array["byteLength"].as<unsigned>()  :   length * js_array["BYTES_PER_ELEMENT"].as<unsigned>() ;
+        
 
             // convert js typed-array into an  Uint8Array
             ems::val js_uint8array = ems::val::global("Uint8Array").new_(
                 js_array_buffer, 
                 byteOffset, 
-                length * bytes_per_element
+                length_uint8
             );
 
             // resize array on c++ size
