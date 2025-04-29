@@ -18,7 +18,7 @@ namespace xeus
 
     public:
 
-        xmock_interpreter(const std::vector<std::string>& args);
+        xmock_interpreter() = default;
         virtual ~xmock_interpreter() = default;
 
         

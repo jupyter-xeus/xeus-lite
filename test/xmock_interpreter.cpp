@@ -20,12 +20,6 @@ namespace nl = nlohmann;
 namespace xeus
 {
 
-    xmock_interpreter::xmock_interpreter(const std::vector<std::string>& /*args*/)
-        : xinterpreter()
-    {
-        // Arguments intentionally ignored in mock interpreter
-    }
-
     void xmock_interpreter::configure_impl()
     {
         auto handle_comm_opened = [](xeus::xcomm&& comm, const xeus::xmessage&) {
