@@ -8,7 +8,8 @@ global.self = {
 }
 
 function test_start_kernel(Module) {
-    raw_xkernel = new Module.xkernel();
+    const argv = ["xtest_kernel"];
+    raw_xkernel = new Module.xkernel(argv);
     var raw_xserver = raw_xkernel.get_server();
     raw_xkernel.start()
 }
@@ -48,7 +49,8 @@ function test_buffer_sequence_js_to_cpp(XeusModule) {
 }
 
 function test_notify_listener(Module) {
-    raw_xkernel = new Module.xkernel();
+    const argv = ["xtest_kernel"];
+    raw_xkernel = new Module.xkernel(argv);
     var raw_xserver = raw_xkernel.get_server();
     raw_xkernel.start()
 
