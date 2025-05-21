@@ -50,6 +50,30 @@ namespace xeus
     }
 
     template<class interpreter_type, builder_type<interpreter_type> builder>
+    std::unique_ptr<xkernel> make_xkernel_noarg()
+    {
+        xeus::xconfiguration config;
+
+        using history_manager_ptr = std::unique_ptr<xeus::xhistory_manager>;
+        history_manager_ptr hist = xeus::make_in_memory_history_manager();
+
+        std::unique_ptr<interpreter_type> interpreter;
+        interpreter.reset((*builder)(ems::val()));
+
+        auto context = std::make_unique<xeus::xcontext_impl<empty_context_tag>>();
+
+        xeus::xkernel * kernel = new xeus::xkernel(config,
+                             xeus::get_user_name(),
+                             std::move(context),
+                             std::move(interpreter),
+                             xeus::make_xserver_emscripten,
+                             std::move(hist),
+                             nullptr
+                             );
+        return std::unique_ptr<xkernel>{kernel};
+    }
+
+    template<class interpreter_type, builder_type<interpreter_type> builder>
     std::unique_ptr<xkernel> make_xkernel(ems::val js_argv)
     {
         xeus::xconfiguration config;
@@ -77,7 +101,8 @@ namespace xeus
     void export_kernel(const std::string kernel_name)
     {
         ems::class_<xkernel>(kernel_name.c_str())
-            .constructor<>(&make_xkernel<interpreter_type, builder>)
+            .template constructor<>(&make_xkernel_noarg<interpreter_type, builder>)
+            .template constructor<>(&make_xkernel<interpreter_type, builder>)
             .function("get_server", &get_server, ems::allow_raw_pointers())
             .function("start", &xkernel::start)
         ;
