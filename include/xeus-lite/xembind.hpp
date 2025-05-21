@@ -73,11 +73,18 @@ namespace xeus
         return std::unique_ptr<xkernel>{kernel};
     }
 
+    template<class interpreter_type, builder_type<interpreter_type> builder>
+    std::unique_ptr<xkernel> make_xkernel_noarg()
+    {
+        return make_xkernel<interpreter_type, builder>(ems::val::array());
+    }
+
     template<class interpreter_type, builder_type<interpreter_type> builder = &default_builder<interpreter_type>>
     void export_kernel(const std::string kernel_name)
     {
         ems::class_<xkernel>(kernel_name.c_str())
-            .constructor<>(&make_xkernel<interpreter_type, builder>)
+            .template constructor<>(&make_xkernel<interpreter_type, builder>)
+            .template constructor<>(&make_xkernel_noarg<interpreter_type, builder>)
             .function("get_server", &get_server, ems::allow_raw_pointers())
             .function("start", &xkernel::start)
         ;
