@@ -76,7 +76,7 @@ namespace xeus
     template<class interpreter_type, builder_type<interpreter_type> builder>
     std::unique_ptr<xkernel> make_xkernel_noarg()
     {
-        return make_xkernel<interpreter_type, builder>(ems::val());
+        return make_xkernel<interpreter_type, builder>(ems::val::array());
     }
 
     template<class interpreter_type, builder_type<interpreter_type> builder = &default_builder<interpreter_type>>
