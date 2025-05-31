@@ -93,9 +93,9 @@ target_include_directories(
     $<INSTALL_INTERFACE:include>
 )
 if(XEUS_LITE_USE_SHARED_XEUS)
-    target_link_libraries(xeus-lite PRIVATE xeus)
+    target_link_libraries(xeus-lite PUBLIC xeus)
 else()
-    target_link_libraries(xeus-lite PRIVATE xeus-static)
+    target_link_libraries(xeus-lite PUBLIC xeus-static)
 endif()
 
 set_target_properties(

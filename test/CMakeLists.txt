@@ -25,7 +25,7 @@ if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
 
     SET(KERNEL_INSTALL_DIR "share/jupyter/kernels/xlite")
 
-    install(FILES      "${CMAKE_CURRENT_SOURCE_DIR}/logo-64x64.png"
+    install(FILES   "${CMAKE_CURRENT_SOURCE_DIR}/logo-64x64.png"
                     "${CMAKE_CURRENT_SOURCE_DIR}/logo-32x32.png"
                     "$<TARGET_FILE_DIR:xlite>/xlite.wasm"
                     "$<TARGET_FILE_DIR:xlite>/xlite.js"
