@@ -93,19 +93,9 @@ target_include_directories(
     $<INSTALL_INTERFACE:include>
 )
 if(XEUS_LITE_USE_SHARED_XEUS)
-    message(STATUS "Linking xeus-lite with shared xeus target")
-    if(TARGET xeus)
-        target_link_libraries(xeus-lite PRIVATE xeus)
-    else()
-        message(FATAL_ERROR "XEUS_LITE_USE_SHARED_XEUS is ON but 'xeus' target not found")
-    endif()
+    target_link_libraries(xeus-lite PRIVATE xeus)
 else()
-    message(STATUS "Linking xeus-lite with static xeus target")
-    if(TARGET xeus-static)
-        target_link_libraries(xeus-lite PRIVATE xeus-static)
-    else()
-        message(FATAL_ERROR "XEUS_LITE_USE_SHARED_XEUS is OFF but 'xeus-static' target not found")
-    endif()
+    target_link_libraries(xeus-lite PRIVATE xeus-static)
 endif()
 
 set_target_properties(
