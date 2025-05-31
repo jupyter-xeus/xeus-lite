@@ -51,7 +51,7 @@ endif()
 # ==========================
 
 message(STATUS "XEUS_LITE_USE_SHARED_XEUS:                ${XEUS_LITE_USE_SHARED_XEUS}")
-message(STATUS "XEUS_LITE_BUILD_NODE_TESTS:                ${XEUS_LITE_BUILD_NODE_TESTS}")
+message(STATUS "XEUS_LITE_BUILD_NODE_TESTS:               ${XEUS_LITE_BUILD_NODE_TESTS}")
 
 # Dependencies
 # ============
