@@ -12,7 +12,11 @@ if(XEUS_LITE_BUILD_NODE_TESTS)
     add_executable(emscripten_wasm_test main_emscripten_wasm.cpp xmock_interpreter.cpp)
     target_compile_features(emscripten_wasm_test PRIVATE cxx_std_17)
     target_link_libraries(emscripten_wasm_test PRIVATE xeus-lite)
+
     target_compile_options(emscripten_wasm_test PRIVATE -sMAIN_MODULE=1)
+    # linker options
+    target_link_options(emscripten_wasm_test -sMAIN_MODULE=1)
+
 
 
     xeus_wasm_compile_options(emscripten_wasm_test)
@@ -23,7 +27,7 @@ if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
     add_executable(xlite main_emscripten_wasm.cpp xmock_interpreter.cpp)
     target_compile_features(xlite PRIVATE cxx_std_17)
     target_link_libraries(xlite PRIVATE xeus-lite)
-    target_compile_options(emscripten_wasm_test PRIVATE -sMAIN_MODULE=1)
+    target_link_options(xlite -sMAIN_MODULE=1)
 
     xeus_wasm_compile_options(xlite)
     xeus_wasm_link_options(xlite "web,worker")
