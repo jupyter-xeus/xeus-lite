@@ -35,38 +35,38 @@ namespace xeus
                                                  execute_request_config config,
                                                  nl::json /* user_expressions */)
     {
-        // if (code.compare("hello, world") == 0)
-        // {
-        //     publish_stream("stdout", code);
-        // }
+        if (code.compare("hello, world") == 0)
+        {
+            publish_stream("stdout", code);
+        }
 
-        // if (code.compare("error") == 0)
-        // {
-        //     publish_stream("stderr", code);
-        // }
+        if (code.compare("error") == 0)
+        {
+            publish_stream("stderr", code);
+        }
 
-        // if (code.compare("?") == 0)
-        // {
-        //     std::string html_content = R"(<iframe class="xpyt-iframe-pager" src="
-        //                                     https://xeus.readthedocs.io"></iframe>)";
+        if (code.compare("?") == 0)
+        {
+            std::string html_content = R"(<iframe class="xpyt-iframe-pager" src="
+                                             https://xeus.readthedocs.io"></iframe>)";
 
-        //     auto payload = nl::json::array();
-        //     payload[0] = nl::json::object({
-        //                     {"data", {
-        //                         {"text/plain", "https://xeus.readthedocs.io"},
-        //                         {"text/html", html_content}}
-        //                     },
-        //                     {"source", "page"},
-        //                     {"start", 0}
-        //                 });
+            auto payload = nl::json::array();
+            payload[0] = nl::json::object({
+                            {"data", {
+                                {"text/plain", "https://xeus.readthedocs.io"},
+                                {"text/html", html_content}}
+                            },
+                            {"source", "page"},
+                            {"start", 0}
+                        });
 
-        //     cb(xeus::create_successful_reply(payload));
-        //     return;
-        // }
+             cb(xeus::create_successful_reply(payload));
+             return;
+        }
 
-        // nl::json pub_data;
-        // pub_data["text/plain"] = code;
-        // publish_execution_result(execution_counter, std::move(pub_data), nl::json::object());
+        nl::json pub_data;
+        pub_data["text/plain"] = code;
+        publish_execution_result(execution_counter, std::move(pub_data), nl::json::object());
 
         cb(xeus::create_successful_reply());
         return;
