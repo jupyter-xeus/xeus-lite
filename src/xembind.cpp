@@ -39,31 +39,27 @@ namespace xeus
             // the typed array an be of any type
             ems::val js_array = buffers_vec[i];
 
-            // data we need to convert js_array into an js Uint8Arra
-            ems::val js_array_buffer = js_array["buffer"].as<ems::val>();
-            ems::val byteOffset = js_array["byteOffset"].as<ems::val>();
-            const unsigned length = js_array["length"].as<unsigned> ();
+            // data needed to convert js_array into a Uint8Array
+            ems::val js_array_buffer = js_array["buffer"];
+            const unsigned byteOffset = js_array["byteOffset"].as<unsigned>();
             const unsigned length_uint8 = js_array["byteLength"].as<unsigned>();
-        
-            // convert js typed-array into an  Uint8Array
+
+            // convert JS typed-array into a Uint8Array
             ems::val js_uint8array = ems::val::global("Uint8Array").new_(
-                js_array_buffer, 
-                byteOffset, 
+                js_array_buffer,
+                byteOffset,
                 length_uint8
             );
 
-            // resize array on c++ size
+            // resize C++ buffer
             self[i].resize(length_uint8);
 
-            // copy values from js side to vectors mem
-            // - create a javascript "UInt8(!) (not Int8) array"
-            //   which is using the vector ptr as buffer
-            ems::val heap = ems::val::module_property("HEAPU8");
-            ems::val memory = heap["buffer"];
-            ems::val memory_view = js_uint8array["constructor"].new_(memory, 
-                reinterpret_cast<uintptr_t>(self[i].data()), 
-                length_uint8);
-
+            // // create a JS view into C++ memory (SAFE in 4.x)
+            ems::val cpp_view = ems::val(emscripten::typed_memory_view(
+                length_uint8,
+                self[i].data()
+            ));
+            
             // - copy the js arrays content into the c++ arrays content
             memory_view.call<void>("set", js_uint8array);
         }
