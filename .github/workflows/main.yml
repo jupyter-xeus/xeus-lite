@@ -48,13 +48,14 @@ jobs:
           export CMAKE_SYSTEM_PREFIX_PATH=$PREFIX
           
           micromamba activate xeus-wasm-build
-          
+
           emcmake cmake \
             -DCMAKE_INSTALL_PREFIX=$PREFIX \
             -Dnlohmann_json_DIR=$PREFIX/share/cmake/nlohmann_json \
             -Dxeus_DIR=$PREFIX/lib/cmake/xeus \
             -DXEUS_LITE_BUILD_BROWSER_TEST_KERNEL=ON \
-            -DXEUS_LITE_BUILD_NODE_TESTS=ON
+            -DXEUS_LITE_BUILD_NODE_TESTS=ON \
+          ..
 
 
           make -j${{ steps.cpu-cores.outputs.count }}
