@@ -58,14 +58,16 @@ jobs:
           ..
 
 
-          make -j${{ steps.cpu-cores.outputs.count }}
+          make -j${{ steps.cpu-cores.outputs.count }} install
 
           # copy the tests from the build dir (this dir)
           # to ../test/
 
           cd test
+          ls
           cp *.{js,wasm} $REPO_DIR/test
           cp $PREFIX/lib/libxeus.so $REPO_DIR/test
 
           # run the tests
+          cd $REPO_DIR/test
           node --no-experimental-fetch test_wasm.js
