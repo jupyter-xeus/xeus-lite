@@ -48,6 +48,7 @@ jobs:
           export CMAKE_SYSTEM_PREFIX_PATH=$PREFIX
           
           micromamba activate xeus-wasm-build
+          
           emcmake cmake \
             -DCMAKE_INSTALL_PREFIX=$PREFIX \
             -Dnlohmann_json_DIR=$PREFIX/share/cmake/nlohmann_json \
