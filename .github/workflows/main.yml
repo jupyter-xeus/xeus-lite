@@ -10,7 +10,7 @@ on:
 
 defaults:
   run:
-    shell: bash -l {0}
+    shell: bash -el {0}
 
 jobs:
 
@@ -32,7 +32,8 @@ jobs:
         with:
           environment-file: environment-wasm-build.yml
           environment-name: xeus-wasm-build
-          # create-args: libuuid
+          init-shell: >-
+            bash
 
       - name: Build and package xeus
         run: |
