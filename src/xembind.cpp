@@ -44,7 +44,7 @@ namespace xeus
             const unsigned byteOffset = js_array["byteOffset"].as<unsigned>();
             const unsigned length_uint8 = js_array["byteLength"].as<unsigned>();
 
-            // convert JS typed-array into a Uint8Array
+            // convert JS typed-array into an Uint8Array
             ems::val js_uint8array = ems::val::global("Uint8Array").new_(
                 js_array_buffer,
                 byteOffset,
