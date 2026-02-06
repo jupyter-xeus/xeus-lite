@@ -60,8 +60,8 @@ namespace xeus
                 self[i].data()
             ));
             
-            // - copy the js arrays content into the c++ arrays content
-            memory_view.call<void>("set", js_uint8array);
+            // copy JS → C++
+            cpp_view.call<void>("set", js_uint8array);
         }
     }
 
