@@ -8,18 +8,66 @@ on:
     branches:
     - main
 
+
 jobs:
+
   emscripten_wasm:
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     strategy:
       fail-fast: false
-      matrix:
-        emsdk: ["3.1.73", "4.0.3"]
+
     steps:
       - uses: actions/checkout@v4
-      - uses: docker-practice/actions-setup-docker@master
-      - run: |
-          chmod +x test/test_emscripten.sh
-          ./test/test_emscripten.sh BUILD ${{ matrix.emsdk }}
+
+      - name: Get number of CPU cores
+        uses: SimenB/github-actions-cpu-cores@v2
+
+      - name: Install micromamba
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment-wasm-build.yml
+          environment-name: xeus-wasm-build
+          init-shell: >-
+            bash
+
+      - name: Build and package xeus
+        shell: bash -l {0}
+        run: |
+        
+          micromamba create -f environment-wasm-host.yml --platform=emscripten-wasm32
+          
+          export REPO_DIR=$(pwd)
+          mkdir build
+          pushd build
+          
+          
+          export PREFIX=$MAMBA_ROOT_PREFIX/envs/xeus-wasm-host
+          export CMAKE_PREFIX_PATH=$PREFIX
+          export CMAKE_SYSTEM_PREFIX_PATH=$PREFIX
+          
+          micromamba activate xeus-wasm-build
+
+          emcmake cmake \
+            -DCMAKE_INSTALL_PREFIX=$PREFIX \
+            -Dnlohmann_json_DIR=$PREFIX/share/cmake/nlohmann_json \
+            -Dxeus_DIR=$PREFIX/lib/cmake/xeus \
+            -DXEUS_LITE_BUILD_BROWSER_TEST_KERNEL=ON \
+            -DXEUS_LITE_BUILD_NODE_TESTS=ON \
+          ..
+
+
+          make -j${{ steps.cpu-cores.outputs.count }} install
+
+          # copy the tests from the build dir (this dir)
+          # to ../test/
+
+          cd test
+          ls
+          cp *.{js,wasm} $REPO_DIR/test
+          cp $PREFIX/lib/libxeus.so $REPO_DIR/test
+
+          # run the tests
+          cd $REPO_DIR/test
+          node --no-experimental-fetch test_wasm.js
