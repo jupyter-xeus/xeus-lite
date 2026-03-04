@@ -143,7 +143,7 @@ namespace xeus
     {
     }
 
-    void xserver_emscripten::update_config_impl(xconfiguration& /*config*/) const 
+    void xserver_emscripten::update_config_impl(xkernel_configuration& /*config*/) const 
     {
     }
 

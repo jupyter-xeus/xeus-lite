@@ -70,4 +70,4 @@ jobs:
 
           # run the tests
           cd $REPO_DIR/test
-          node --no-experimental-fetch test_wasm.js
+          node test_wasm.js
