@@ -52,7 +52,7 @@ namespace xeus
         void start_impl(xpub_message message) override;
         void abort_queue_impl(const listener& l, long polling_interval) override;
         void stop_impl() override;
-        void update_config_impl(xconfiguration& config) const override;
+        void update_config_impl(xkernel_configuration& config) const override;
 
         using trivial_messenger_ptr = std::unique_ptr<xtrivial_emscripten_messenger>;
         trivial_messenger_ptr p_messenger;
