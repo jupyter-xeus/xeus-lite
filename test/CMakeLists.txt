@@ -23,6 +23,14 @@ if(XEUS_LITE_BUILD_NODE_TESTS)
 endif()
 
 if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
+
+include(GNUInstallDirs)
+
+    configure_file (
+        "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json.in"
+        "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json"
+    )
+
     add_executable(xlite main_emscripten_wasm.cpp xmock_interpreter.cpp)
     target_compile_features(xlite PRIVATE cxx_std_17)
     target_link_libraries(xlite PRIVATE xeus-lite)
@@ -39,8 +47,12 @@ if(XEUS_LITE_BUILD_BROWSER_TEST_KERNEL)
 
     install(FILES   "${CMAKE_CURRENT_SOURCE_DIR}/logo-64x64.png"
                     "${CMAKE_CURRENT_SOURCE_DIR}/logo-32x32.png"
-                    "$<TARGET_FILE_DIR:xlite>/xlite.wasm"
-                    "$<TARGET_FILE_DIR:xlite>/xlite.js"
                     "${CMAKE_CURRENT_SOURCE_DIR}/kernel.json"
             DESTINATION ${KERNEL_INSTALL_DIR})
+
+    install(FILES
+            "$<TARGET_FILE_DIR:xlite>/xlite.js"
+            "$<TARGET_FILE_DIR:xlite>/xlite.wasm"
+            DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
 endif()
